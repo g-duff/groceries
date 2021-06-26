@@ -2,7 +2,6 @@
 
 <html>
     <head>
-
         <!-- Flask backend -->
         <!-- https://flask.palletsprojects.com/en/2.0.x/tutorial/ -->
 
@@ -32,20 +31,15 @@
             </div>
         </div>
             
-        <!-- RHS: user input -->
         <div class="col s9" action = "#">
-            <form>
-                <p><label><input type="checkbox" /><span>Meal placeholder</span></label></p>           
-                <a class="waves-effect waves-light btn"><i class="material-icons right">done_all</i>Done</a>
-            </form>
+            {% block userInput %}
+            {% endblock %}
         </div>
 
     </div>
     
-
     <!-- Compiled and minified JavaScript -->
     <!-- JavaScript at end of body for optimized loading -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
     </body>
 </html>

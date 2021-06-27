@@ -1,2 +1,39 @@
 {% extends "layout.html" %}
 
+{% block userInput %}
+
+<form method="post">
+    <div class="row">
+        <!-- https://stackoverflow.com/questions/11556958/sending-data-from-html-form-to-a-python-script-in-flask -->
+    
+        <!-- https://flask.palletsprojects.com/en/2.0.x/quickstart/#http-methods -->
+
+        <div class="input-field col s2">
+            <input placeholder="Name" type="text" class="validate" name="name">
+            <label for="Name">Name</label>
+        </div>
+                
+        <div class="input-field col s2">
+            <input placeholder="Quantity" type="number" class="validate" name="quantity">
+            <label for="Quantity">Quantity</label>
+        </div>
+        
+        <div class="input-field col s2">
+            <input placeholder="Unit" type="text" class="validate" name="unit">
+            <label for="Unit">Unit</label>
+        </div>
+
+        <div class="input-field col s2">
+            <input placeholder="Unit" type="text" class="validate" name="category">
+            <label for="category">category</label>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <input type="submit" value="Submit">
+    </div>
+
+</form>
+
+{% endblock %}

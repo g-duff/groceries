@@ -1,4 +1,5 @@
 from flask.templating import render_template
+from flask import request
 from groceriesApp import app
 
 @app.route("/")

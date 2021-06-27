@@ -1,4 +1,3 @@
-from re import template
 from flask.templating import render_template
 from groceriesApp import app
 

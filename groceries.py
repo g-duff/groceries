@@ -45,6 +45,17 @@ class ShoppingList:
         return categorizedItems
 
 
+    def getCategories(self, templateDict={"veg": [], "dairy": []}):
+        
+        for i in self.items:
+            if i.category in templateDict:
+                templateDict[i.category].append(i)
+            else:
+                templateDict[i.category] = [i]
+
+        return templateDict
+
+
     def sumDuplicates(self) -> None:
 
         self.items.sort(key= lambda i: i.name)

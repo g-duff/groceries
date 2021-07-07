@@ -10,8 +10,10 @@ class Ingredient:
         except AttributeError:
             self.meal = None
 
+
     def __str__(self) -> str:
         return f"{self.quantity} {self.unit} of {self.name}"
+
 
     def __repr__(self) -> str:
         return f"Ingredient({self.name}, {self.quantity}, {self.unit}, \
@@ -20,12 +22,15 @@ class Ingredient:
     
 
 class ShoppingList:
+
     def __init__(self, items):
         self.items = items
+
 
     def getCategory(self, catgory):
         categorizedItems = [i for i in self.items if i.category==catgory]
         return categorizedItems
+
 
     def sumDuplicates(self) -> None:
 
@@ -39,3 +44,10 @@ class ShoppingList:
 
     def __str__(self) -> str:
         return "\n".join(str(i) for i in self.items)
+
+
+    @staticmethod
+    def load(fpath):
+        with open(fpath, 'r') as open_meal:
+            ingredient_list = [Ingredient(*line.split(',')) for line in open_meal]
+        return ShoppingList(ingredient_list)

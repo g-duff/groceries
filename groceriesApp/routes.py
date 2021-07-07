@@ -6,13 +6,15 @@ import groceries as gc
 @app.route("/", methods=["GET", "POST"])
 @app.route("/combine-recipes", methods=["GET", "POST"])
 def home():
+    mealList = gc.ShoppingList.mealList()
+    
     if request.method == "POST":
         f = request.form
         shoppingList = gc.ShoppingList([]) # Placeholder
-        return render_template("./combine-recipes.html", ingredients=shoppingList.items)
+        return render_template("./combine-recipes.html", mealList=mealList, ingredients=shoppingList.items)
     
     elif request.method == "GET":
-        return render_template("./combine-recipes.html")
+        return render_template("./combine-recipes.html", mealList=mealList)
 
 
 @app.route("/enter_recipe")

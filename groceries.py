@@ -1,3 +1,5 @@
+from pathlib import Path
+
 class Ingredient:
 
     def __init__(self, name, quantity, unit, category, meal=None):
@@ -51,3 +53,9 @@ class ShoppingList:
         with open(fpath, 'r') as open_meal:
             ingredient_list = [Ingredient(*line.split(',')) for line in open_meal]
         return ShoppingList(ingredient_list)
+
+    
+    @staticmethod
+    def mealList(recipePath = "recipes"):
+        P = Path(recipePath)
+        return [f for f in P.glob("*") if f.is_file()]

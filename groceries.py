@@ -45,7 +45,7 @@ class ShoppingList:
         return categorizedItems
 
 
-    def getCategories(self, templateDict={"veg": [], "dairy": []}):
+    def getCategories(self, templateDict={"vegetable": []}):
         
         for i in self.items:
             if i.category in templateDict:

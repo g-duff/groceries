@@ -16,8 +16,15 @@
 
     <!-- Output list placeholder -->
     <ul>
-        {% for i in ingredients %}
-            <li>{{i.quantity}} {{i.unit}} of {{i.name}}</li>
+        {% for category, items in shoppingDict.items() %}
+
+            <h4>{{category}}</h4>
+
+            {% for i in items %}
+                <li>{{i.quantity}} {{i.unit}} of {{i.name}}</li>
+            {% endfor %}
+
         {% endfor %}
     </ul>
+
 {% endblock %}

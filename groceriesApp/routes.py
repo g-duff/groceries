@@ -15,16 +15,17 @@ def home():
         for recipePath in request.form:
             inList += gc.load(recipePath)
 
-        # Process the ingredients
+        # Process the ingredients 
         shoppingList = gc.ShoppingList(inList)
         shoppingList.sumDuplicates()
 
         # Split into categories
+        shoppingDict = shoppingList.getCategories()
         
-        return render_template("./combine-recipes.html", mealList=mealList, ingredients=shoppingList.items)
+        return render_template("./combine-recipes.html", mealList=mealList, shoppingDict=shoppingDict)
     
     elif request.method == "GET":
-        return render_template("./combine-recipes.html", mealList=mealList)
+        return render_template("./combine-recipes.html", mealList=mealList, shoppingDict={})
 
 
 @app.route("/enter_recipe")

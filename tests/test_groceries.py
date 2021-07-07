@@ -72,15 +72,15 @@ class TestGroceries(unittest.TestCase):
         names = ("potato", "tomato", "eggs", "milk")
         quantities = (2, 4, 6, 1)
         units = ("#", "#", "#", "l")
-        categogires = ("veg", "veg", "dairy", "dairy")
+        categogires = ("vegetable", "vegetable", "dairy", "dairy")
         inputArgs = zip(names, quantities, units, categogires)
 
         inputList = [gc.Ingredient(*a) for a in inputArgs]
         shoppingList = gc.ShoppingList(inputList)
 
         questionCategories = {
-            "veg": [i for i in inputList 
-                if i.category=="veg"],
+            "vegetable": [i for i in inputList 
+                if i.category=="vegetable"],
             "dairy": [i for i in inputList 
                 if i.category=="dairy"]
         }

@@ -1,10 +1,18 @@
 from flask.templating import render_template
+from flask import request
 from groceriesApp import app
+import groceries as gc
 
-@app.route("/")
-@app.route("/combine-recipes")
-def combine_recipe():
-    return render_template("./combine-recipes.html")
+@app.route("/", methods=["GET", "POST"])
+@app.route("/combine-recipes", methods=["GET", "POST"])
+def home():
+    if request.method == "POST":
+        f = request.form
+        shoppingList = gc.ShoppingList([]) # Placeholder
+        return render_template("./combine-recipes.html", ingredients=shoppingList.items)
+    
+    elif request.method == "GET":
+        return render_template("./combine-recipes.html")
 
 
 @app.route("/enter_recipe")

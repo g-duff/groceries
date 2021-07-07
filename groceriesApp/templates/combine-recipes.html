@@ -2,29 +2,30 @@
 
 <!-- RHS: user input -->
 {% block userInput %}
-    <form action="/", method="POST">
-
-        {% for m in mealList %}
-        <p><label><input type="checkbox" name="{{m}}"/><span>{{m.stem.replace("_", " ")}}</span></label></p>
-        {% endfor %}
-
-        <button class="btn waves-effect waves-light" type="submit">Submit
-            <i class="material-icons right">send</i>
-        </button>
-
-    </form>
+    <div class="col s4">
+        <form action="/", method="POST">
+            
+            {% for m in mealList %}
+            <p><label><input type="checkbox" name="{{m}}"/><span>{{m.stem.replace("_", " ")}}</span></label></p>
+            {% endfor %}
+            
+            <button class="btn waves-effect waves-light" type="submit">Submit
+                <i class="material-icons right">send</i>
+            </button>
+            
+        </form>
+    </div>
 
     <!-- Output list placeholder -->
-    <ul>
-        {% for category, items in shoppingDict.items() %}
-
-            <h4>{{category}}</h4>
-
-            {% for i in items %}
+    <div class="col s4">
+        <ul>
+            {% for category, items in shoppingDict.items() %}
+            <h4>{{category}}</h4>            
+                {% for i in items %}
                 <li>{{i.quantity}} {{i.unit}} of {{i.name}}</li>
+                {% endfor %}
+            
             {% endfor %}
-
-        {% endfor %}
-    </ul>
-
+        </ul>
+    </div>
 {% endblock %}

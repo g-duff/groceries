@@ -31,7 +31,6 @@ class Ingredient:
     def __repr__(self) -> str:
         return f"Ingredient({self.name}, {self.quantity}, {self.unit}, \
             {self.category}, {self.meal}"
-        pass
     
 
 class ShoppingList:
@@ -45,8 +44,11 @@ class ShoppingList:
         return categorizedItems
 
 
-    def getCategories(self, templateDict={"vegetable": []}):
+    def getCategories(self, templateDict=None):
         
+        if templateDict == None:
+            templateDict={"vegetable": []}
+
         for i in self.items:
             if i.category in templateDict:
                 templateDict[i.category].append(i)

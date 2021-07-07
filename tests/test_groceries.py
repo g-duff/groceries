@@ -24,11 +24,10 @@ class TestGroceries(unittest.TestCase):
             "1.0 cloves of garlic"
         ]
 
-        answerString = "\n".join(inString)
+        questionList = gc.load("recipes/chilli.csv")
+        questionStr = [str(i) for i in questionList]
 
-        questionList = gc.ShoppingList.load("recipes/chilli.csv")
-
-        self.assertEqual(str(questionList), answerString)
+        self.assertEqual(questionStr, inString)
  
 
     def test_getCategories(self):

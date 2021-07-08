@@ -13,7 +13,24 @@ class TestIngredients(unittest.TestCase):
 
 class TestGroceries(unittest.TestCase):
 
-    def test_getCategories(self):
+    def test_load(self):
+        ''' Load a recipe from a filepath'''
+
+        inString = [
+            "1.0 tin of tinned tomatoes",
+            "1.0 tin of kidney beans",
+            "1.0 tin of black beans",
+            "1.0 # of onion",
+            "1.0 cloves of garlic"
+        ]
+
+        questionList = gc.load("recipes/chilli.csv")
+        questionStr = [str(i) for i in questionList]
+
+        self.assertEqual(questionStr, inString)
+ 
+
+    def test_getCategory(self):
         '''Get items in a given category'''
 
         names = ("potato", "tomato", "eggs", "milk")
@@ -47,6 +64,30 @@ class TestGroceries(unittest.TestCase):
         answerString = "8.0 # of cabbage\n5.0 # of potato\n2.0 # of tomato"
 
         self.assertEqual(str(questionList), answerString)
+
+
+    def test_getCategories(self):
+        ''' split all items into their categories'''
+
+        names = ("potato", "tomato", "eggs", "milk")
+        quantities = (2, 4, 6, 1)
+        units = ("#", "#", "#", "l")
+        categogires = ("vegetable", "vegetable", "dairy", "dairy")
+        inputArgs = zip(names, quantities, units, categogires)
+
+        inputList = [gc.Ingredient(*a) for a in inputArgs]
+        shoppingList = gc.ShoppingList(inputList)
+
+        questionCategories = {
+            "vegetable": [i for i in inputList 
+                if i.category=="vegetable"],
+            "dairy": [i for i in inputList 
+                if i.category=="dairy"]
+        }
+
+        answerCategories = shoppingList.getCategories()
+
+        self.assertEqual(questionCategories, answerCategories)
 
 
 if __name__ == '__main__':

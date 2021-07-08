@@ -2,8 +2,30 @@
 
 <!-- RHS: user input -->
 {% block userInput %}
-    <form>
-        <p><label><input type="checkbox" /><span>Meal placeholder</span></label></p>
-        <a class="waves-effect waves-light btn"><i class="material-icons right">done_all</i>Done</a>
-    </form>
+    <div class="col s4">
+        <form action="/", method="POST">
+            
+            {% for m in mealList %}
+            <p><label><input type="checkbox" name="{{m}}"/><span>{{m.stem.replace("_", " ")}}</span></label></p>
+            {% endfor %}
+            
+            <button class="btn waves-effect waves-light" type="submit">Submit
+                <i class="material-icons right">send</i>
+            </button>
+            
+        </form>
+    </div>
+
+    <!-- Output list placeholder -->
+    <div class="col s4">
+        <ul>
+            {% for category, items in shoppingDict.items() %}
+            <h4>{{category}}</h4>            
+                {% for i in items %}
+                <li>{{i.quantity}} {{i.unit}} of {{i.name}}</li>
+                {% endfor %}
+            
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

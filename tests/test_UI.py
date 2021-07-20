@@ -47,3 +47,11 @@ class TestUI(unittest.TestCase):
 
         # Compare text output with expected output
         pass
+
+
+    def test_emptyList(self):
+        ''' generate a list of ingredients without any recipes selected '''
+        # Subut form
+
+        # Compare with selected output
+        pass

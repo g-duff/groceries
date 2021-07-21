@@ -7,8 +7,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 inputDiv   = "body > div > div:nth-child(2)"
-inputItem  = "body > div > div:nth-child(2) > form > p:nth-child(1)"
-inputItems = "body > div > div:nth-child(2) > form > p"
+inputItems = "body > div > div:nth-child(2) > form > p > label"
+submItems  = "body > div > div:nth-child(2) > form > button"
+
+outputDiv  = "body > div > div:nth-child(3)"
+outputItem = "body > div > div:nth-child(3) > ul > li"
 
 class TestUI(unittest.TestCase):
 
@@ -67,12 +70,42 @@ class TestUI(unittest.TestCase):
     def test_loadRecipe(self):
         ''' Compares presented ingredients from a single recipe on page 
         with expected output text'''
+
+        testRecipe = "chilli"
+
+        sl = gc.ShoppingList(gc.load(f"./recipes/{testRecipe}.csv"))
+        sl.sumDuplicates()
+        expectedOutput = sl.getCategories()
+
+        outString = []
+        for category, items in expectedOutput.items():
+            outString.append(category)
+            for i in items:
+                outString.append(str(i))
+
         # Tick a single box
-        
+        WebDriverWait(self.driver, 3).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, inputItems))
+        )
+        inputBoxes = self.driver.find_elements_by_css_selector(inputItems)
+        for ib in inputBoxes:
+            if ib.text == testRecipe:
+                ib.click()
+                print("Clicked!")
+
         # Submit form
+        submitButton = self.driver.find_element_by_css_selector(submItems)
+        submitButton.location_once_scrolled_into_view
+        submitButton.click()
 
         # Compare text output with expected output
-        pass
+        WebDriverWait(self.driver, 3).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, outputItem))
+        )
+        outputSList = self.driver.find_elements_by_css_selector(outputItem)
+        actualOutput = [ao.text for ao in outputSList]
+
+        self.assertEqual(outString, actualOutput)
 
 
     def test_combineRecipes(self):

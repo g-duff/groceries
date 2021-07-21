@@ -91,7 +91,6 @@ class TestUI(unittest.TestCase):
         for ib in inputBoxes:
             if ib.text == testRecipe:
                 ib.click()
-                print("Clicked!")
 
         # Submit form
         submitButton = self.driver.find_element_by_css_selector(submItems)
@@ -121,7 +120,16 @@ class TestUI(unittest.TestCase):
 
     def test_emptyList(self):
         ''' generate a list of ingredients without any recipes selected '''
-        # Subut form
+        # Submit form
+        submitButton = self.driver.find_element_by_css_selector(submItems)
+        submitButton.location_once_scrolled_into_view
+        submitButton.click()
 
         # Compare with selected output
-        pass
+        WebDriverWait(self.driver, 3).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, outputItem))
+        )
+        outputSList = self.driver.find_elements_by_css_selector(outputItem)
+        actualOutput = [ao.text for ao in outputSList]
+
+        self.assertEqual(["Empty list"], actualOutput)

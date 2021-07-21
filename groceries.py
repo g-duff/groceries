@@ -49,6 +49,9 @@ class ShoppingList:
         if templateDict == None:
             templateDict={"vegetable": []}
 
+        if self.items == []:
+            return {"Empty list": []}
+
         for i in self.items:
             if i.category in templateDict:
                 templateDict[i.category].append(i)

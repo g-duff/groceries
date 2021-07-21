@@ -20,9 +20,9 @@
     <div class="col s4">
         <ul>
             {% for category, items in shoppingDict.items() %}
-            <h4>{{category}}</h4>            
+            <li class="category"><h4>{{category}}</h4></li>
                 {% for i in items %}
-                <li>{{i.quantity}} {{i.unit}} of {{i.name}}</li>
+                <li class="ingredient">{{i.quantity}} {{i.unit}} of {{i.name}}</li>
                 {% endfor %}
             
             {% endfor %}

@@ -6,6 +6,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+inputDiv   = "body > div > div:nth-child(2)"
+inputItem  = "body > div > div:nth-child(2) > form > p:nth-child(1)"
+inputItems = "body > div > div:nth-child(2) > form > p"
+
 class TestUI(unittest.TestCase):
 
 
@@ -46,11 +50,25 @@ class TestUI(unittest.TestCase):
         Compares with available recipes in database'''
         pass
 
+        WebDriverWait(self.driver, 3).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, inputItems))
+        )
+        
+        inputBoxes = self.driver.find_elements_by_css_selector(inputItems)
+
+        pageInputFields = [ib.text for ib in inputBoxes]
+        pageInputFields.sort()
+
+        designedInputFields = gc.mealList()
+        designedInputFields = sorted(f.stem.replace("_", " ") for f in designedInputFields)
+
+        self.assertEqual(pageInputFields, designedInputFields)
+
     def test_loadRecipe(self):
         ''' Compares presented ingredients from a single recipe on page 
         with expected output text'''
         # Tick a single box
-
+        
         # Submit form
 
         # Compare text output with expected output

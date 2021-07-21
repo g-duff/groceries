@@ -13,6 +13,15 @@ submItems  = "body > div > div:nth-child(2) > form > button"
 outputDiv  = "body > div > div:nth-child(3)"
 outputItem = "body > div > div:nth-child(3) > ul > li"
 
+
+def getOutput(driver):
+    WebDriverWait(driver, 3).until(
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, outputItem))
+    )
+    outputSList = driver.find_elements_by_css_selector(outputItem)
+    return [ao.text for ao in outputSList]
+
+
 class TestUI(unittest.TestCase):
 
 
@@ -98,11 +107,7 @@ class TestUI(unittest.TestCase):
         submitButton.click()
 
         # Compare text output with expected output
-        WebDriverWait(self.driver, 3).until(
-            EC.presence_of_all_elements_located((By.CSS_SELECTOR, outputItem))
-        )
-        outputSList = self.driver.find_elements_by_css_selector(outputItem)
-        actualOutput = [ao.text for ao in outputSList]
+        actualOutput = getOutput(self.driver)
 
         self.assertEqual(outString, actualOutput)
 
@@ -142,11 +147,7 @@ class TestUI(unittest.TestCase):
         submitButton.click()
 
         # Compare text output with expected output
-        WebDriverWait(self.driver, 3).until(
-            EC.presence_of_all_elements_located((By.CSS_SELECTOR, outputItem))
-        )
-        outputSList = self.driver.find_elements_by_css_selector(outputItem)
-        actualOutput = [ao.text for ao in outputSList]
+        actualOutput = getOutput(self.driver)
 
         self.assertEqual(outString, actualOutput)
 
@@ -159,10 +160,6 @@ class TestUI(unittest.TestCase):
         submitButton.click()
 
         # Compare with selected output
-        WebDriverWait(self.driver, 3).until(
-            EC.presence_of_all_elements_located((By.CSS_SELECTOR, outputItem))
-        )
-        outputSList = self.driver.find_elements_by_css_selector(outputItem)
-        actualOutput = [ao.text for ao in outputSList]
+        actualOutput = getOutput(self.driver)
 
         self.assertEqual(["Empty list"], actualOutput)

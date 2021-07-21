@@ -1,12 +1,31 @@
 import groceries as gc  # The code to test
 import unittest         # The test framework
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class TestUI(unittest.TestCase):
 
+
     def setUp(self) -> None:
-        '''Runs the flask application, visits the page in chrome'''
+        ''' Creates a common webdriver, visits the page in browser'''
+        try:
+            driver = webdriver.Chrome(executable_path='./chromedriver')
+        except:
+            driver = webdriver.Safari()
+            
+        self.driver = driver
+        self.driver.get("http://127.0.0.1:5000")
+
         return super().setUp()
+
+
+    def tearDown(self) -> None:
+        ''' Close the selenium webdriver'''
+        self.driver.close()
+        return super().tearDown()
 
 
     def test_saveRecipe(self):

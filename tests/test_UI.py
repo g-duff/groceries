@@ -110,12 +110,45 @@ class TestUI(unittest.TestCase):
     def test_combineRecipes(self):
         ''' Compares combined ingredients from multiple recipes on page 
         with expected output text'''
+        
+        # Generate expected output
+        
+        testRecipes = ("chilli", "bolognese")
+
+        inList = []
+        for r in testRecipes:
+            inList += gc.load(f"./recipes/{r}.csv")
+
+        sl = gc.ShoppingList(inList)
+
+        sl.sumDuplicates()
+        expectedOutput = sl.getCategories()
+
+        outString = []
+        for category, items in expectedOutput.items():
+            outString.append(category)
+            for i in items:
+                outString.append(str(i))
+
         # Tick boxes
+        inputBoxes = self.driver.find_elements_by_css_selector(inputItems)
+        for ib in inputBoxes:
+            if ib.text in testRecipes:
+                ib.click()
 
         # Submit form
+        submitButton = self.driver.find_element_by_css_selector(submItems)
+        submitButton.location_once_scrolled_into_view
+        submitButton.click()
 
         # Compare text output with expected output
-        pass
+        WebDriverWait(self.driver, 3).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, outputItem))
+        )
+        outputSList = self.driver.find_elements_by_css_selector(outputItem)
+        actualOutput = [ao.text for ao in outputSList]
+
+        self.assertEqual(outString, actualOutput)
 
 
     def test_emptyList(self):

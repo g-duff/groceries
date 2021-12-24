@@ -133,3 +133,6 @@ dmypy.json
 
 # Project specific
 recipes
+
+# Mac specific
+.DS_store

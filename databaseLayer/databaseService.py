@@ -18,3 +18,15 @@ class DatabaseService():
         self.connection: sqlite3.Connection = sqlite3.connect(databasePath)
         self.cursor: sqlite3.Cursor = self.connection.cursor()
         pass
+
+    def insertRecipeToDatabase(self, mealPath:Path):
+        mealName = mealPath.stem
+        ingredientsList = load(mealPath)
+        for ingredient in ingredientsList:
+            self.cursor.execute(f"INSERT INTO {mealName} VALUES ('{ingredient.name}',{ingredient.quantity},'{ingredient.unit}','{ingredient.category}')")
+
+    def commitChanges(self):
+        self.connection.commit()
+    
+    def closeConnection(self):
+        self.connection.close()

@@ -36,6 +36,9 @@ class DatabaseService():
         for ingredient in load(mealPath):
             self.cursor.execute(f"INSERT INTO {mealPath.stem} VALUES ('{ingredient.name}',{ingredient.quantity},'{ingredient.unit}','{ingredient.category}')")
 
+    def commitAndClose(self):
+        self.commitChanges()
+        self.closeConnection()
 
     def commitChanges(self):
         self.connection.commit()

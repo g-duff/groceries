@@ -2,18 +2,19 @@ from flask.templating import render_template
 from flask import request
 from groceriesApp import app
 import groceries as gc
+import databaseService
 
 @app.route("/", methods=["GET", "POST"])
 @app.route("/combine-recipes", methods=["GET", "POST"])
 def home():
-    mealList = gc.mealList()
+    mealList = databaseService.mealList()
     
     if request.method == "POST":
 
         # Load user-specified ingredients
         inList = []
         for recipePath in request.form:
-            inList += gc.load(recipePath)
+            inList += databaseService.load(recipePath)
 
         # Process the ingredients 
         shoppingList = gc.ShoppingList(inList)

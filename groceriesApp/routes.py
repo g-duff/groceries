@@ -2,7 +2,7 @@ from flask.templating import render_template
 from flask import request
 from groceriesApp import app
 import groceries as gc
-import databaseService
+from databaseLayer import databaseService
 
 @app.route("/", methods=["GET", "POST"])
 @app.route("/combine-recipes", methods=["GET", "POST"])

@@ -7,6 +7,6 @@ def load(fpath):
     return ingredient_list
 
 
-def mealList(recipePath = "recipes"):
+def mealList(recipePath = "databaseLayer/recipes"):
     P = Path(recipePath)
     return [f for f in P.glob("*") if f.is_file()]

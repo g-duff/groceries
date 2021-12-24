@@ -1,5 +1,5 @@
 import unittest
-import databaseService
+from databaseLayer import databaseService
 
 class TestGroceries(unittest.TestCase):
 
@@ -14,7 +14,7 @@ class TestGroceries(unittest.TestCase):
             "1.0 cloves of garlic"
         ]
 
-        questionList = databaseService.load("recipes/chilli.csv")
+        questionList = databaseService.load("databaseLayer/recipes/chilli.csv")
         questionStr = [str(i) for i in questionList]
 
         self.assertEqual(questionStr, inString)

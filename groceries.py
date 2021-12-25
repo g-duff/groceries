@@ -1,5 +1,3 @@
-from databaseLayer import databaseService
-
 class Ingredient:
 
     def __init__(self, name, quantity, unit, category, meal=None):

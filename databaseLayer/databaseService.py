@@ -22,21 +22,19 @@ class DatabaseService():
         return [groceries.Ingredient(*line) for line in intermediateList]
 
     def insertRecipeToDatabase(self, mealName: str, ingredients: List):
-        mealIsNew: bool = True
-        try:
-            self.createRecipe(mealName)
-        except (sqlite3.OperationalError) as thrownException:
-            mealIsNew = False
-
-        if mealIsNew:
+        if not self.checkMealExists():
             self._insertRecipeIntoDatabase(mealName, ingredients)
+
+    def checkMealExists(self, mealName: str):
+        return mealName in set(self.getMealList())
+
+    def _insertRecipeIntoDatabase(self, mealName: str, ingredients: List):
+        self.createRecipe(mealName)
+        for ingredient in ingredients:
+            self.cursor.execute(f"INSERT INTO {mealName} VALUES ('{ingredient.name}',{ingredient.quantity},'{ingredient.unit}','{ingredient.category}')")
 
     def createRecipe(self, mealName:str):
         self.cursor.execute(f'CREATE TABLE {mealName} (ingredient text, amount real, quantity text, category text)')
-           
-    def _insertRecipeIntoDatabase(self, mealName: str, ingredients: List):
-        for ingredient in ingredients:
-            self.cursor.execute(f"INSERT INTO {mealName} VALUES ('{ingredient.name}',{ingredient.quantity},'{ingredient.unit}','{ingredient.category}')")
 
     def commitAndClose(self):
         self.commitChanges()

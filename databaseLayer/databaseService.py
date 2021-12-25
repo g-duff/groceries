@@ -17,9 +17,7 @@ class DatabaseService():
 
     def getMealIngredients(self, mealName:str):
         self.cursor.execute(f"SELECT ingredient, amount, quantity, category FROM {mealName}")
-        intermediateList = self.cursor.fetchall()
-        print(intermediateList)
-        return [groceries.Ingredient(*line) for line in intermediateList]
+        return [groceries.Ingredient(*line) for line in self.cursor]
 
     def insertRecipeToDatabase(self, mealName: str, ingredients: List):
         if not self.checkMealExists():

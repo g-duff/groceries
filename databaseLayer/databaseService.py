@@ -25,6 +25,12 @@ class DatabaseService():
         formattedNames = [rawName[0] for rawName in self.cursor.fetchall()]
         return formattedNames
 
+    def getMealIngredients(self, mealName:str):
+        self.cursor.execute(f"SELECT ingredient, amount, quantity, category FROM {mealName}")
+        intermediateList = self.cursor.fetchall()
+        print(intermediateList)
+        return [groceries.Ingredient(*line) for line in intermediateList]
+
     def insertRecipeToDatabase(self, mealName: str, ingredients: List):
         mealIsNew: bool = True
         try:

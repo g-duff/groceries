@@ -7,14 +7,15 @@ from databaseLayer import databaseService
 @app.route("/", methods=["GET", "POST"])
 @app.route("/combine-recipes", methods=["GET", "POST"])
 def home():
-    mealList = databaseService.mealList()
+    DatabaseService = databaseService.DatabaseService()
+    mealList = DatabaseService.getMealList()
     
     if request.method == "POST":
 
         # Load user-specified ingredients
         inList = []
-        for recipePath in request.form:
-            inList += databaseService.load(recipePath)
+        for mealName in request.form:
+            inList += DatabaseService.getMealIngredients(mealName)
 
         # Process the ingredients 
         shoppingList = gc.ShoppingList(inList)

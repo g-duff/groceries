@@ -20,6 +20,11 @@ class DatabaseService():
         self.connection: sqlite3.Connection = sqlite3.connect(databasePath)
         self.cursor: sqlite3.Cursor = self.connection.cursor()
 
+    def getMealList(self):
+        self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        formattedNames = [rawName[0] for rawName in self.cursor.fetchall()]
+        return formattedNames
+
     def insertRecipeToDatabase(self, mealName: str, ingredients: List):
         mealIsNew: bool = True
         try:

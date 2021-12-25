@@ -3,13 +3,13 @@ from pathlib import Path
 from databaseLayer import databaseService
 
 if __name__ == '__main__':
-    DatabaseService = databaseService.DatabaseService(Path('databaseLayer/recipes.db'))
+    DatabaseService = databaseService.DatabaseService()
 
     mealPaths: List[Path] = databaseService.mealList()
 
     for mealPath in mealPaths:
-        ingredientsList = databaseService.load(mealPath)
-        mealName = mealPath.stem
+        ingredientsList:List = databaseService.load(mealPath)
+        mealName:str = mealPath.stem
         DatabaseService.insertRecipeToDatabase(mealName, ingredientsList)
 
     DatabaseService.commitAndClose()

@@ -132,7 +132,7 @@ dmypy.json
 .DS_Store
 
 # Project specific
-databaseLayer/recipes
+databaseLayer/recipes*
 
 # Mac specific
 .DS_store

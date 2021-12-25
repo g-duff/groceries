@@ -15,7 +15,7 @@ def mealList(recipePath = "databaseLayer/recipes"):
 
 class DatabaseService():
 
-    def __init__(self, databasePath: Path = Path("./recipes.db")):
+    def __init__(self, databasePath: Path = Path("./databaseLayer/recipes.db")):
         self.databasePath: Path = databasePath
         self.connection: sqlite3.Connection = sqlite3.connect(databasePath)
         self.cursor: sqlite3.Cursor = self.connection.cursor()

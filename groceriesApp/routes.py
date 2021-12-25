@@ -8,7 +8,7 @@ from databaseLayer import databaseService
 @app.route("/combine-recipes", methods=["GET", "POST"])
 def home():
     DatabaseService = databaseService.DatabaseService()
-    mealList = DatabaseService.getMealList()
+    shoppingDict = {}
     
     if request.method == "POST":
 
@@ -23,11 +23,10 @@ def home():
 
         # Split into categories
         shoppingDict = shoppingList.getCategories()
-        
-        return render_template("./combine-recipes.html", mealList=mealList, shoppingDict=shoppingDict)
-    
-    elif request.method == "GET":
-        return render_template("./combine-recipes.html", mealList=mealList, shoppingDict={})
+
+    mealList = DatabaseService.getMealList()
+    DatabaseService.closeConnection()
+    return render_template("./combine-recipes.html", mealList=mealList, shoppingDict=shoppingDict)
 
 
 @app.route("/enter_recipe")

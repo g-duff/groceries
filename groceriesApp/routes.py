@@ -2,12 +2,12 @@ from flask.templating import render_template
 from flask import request
 from groceriesApp import app
 import groceries as gc
-from database import databaseService
+from database import selector
 
 @app.route("/", methods=["GET", "POST"])
 @app.route("/combine-recipes", methods=["GET", "POST"])
 def home():
-    DatabaseService = databaseService.DatabaseService()
+    DatabaseService = selector.DatabaseService()
     shoppingDict = {}
     
     if request.method == "POST":

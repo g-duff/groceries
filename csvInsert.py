@@ -1,6 +1,6 @@
 from typing import List
 from pathlib import Path
-from database import databaseService
+from database import selector
 import groceries
 
 def load(fpath):
@@ -13,7 +13,7 @@ def mealList(recipePath = "databaseLayer/recipes"):
     return [f for f in Path(recipePath).glob("*") if f.is_file()]
 
 if __name__ == '__main__':
-    DatabaseService = databaseService.DatabaseService()
+    DatabaseService = selector.DatabaseService()
 
     mealPaths: List[Path] = mealList()
 

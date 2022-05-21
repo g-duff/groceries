@@ -1,5 +1,5 @@
 import unittest
-from databaseLayer import databaseService
+from database import databaseService
 
 class TestGroceries(unittest.TestCase):
 

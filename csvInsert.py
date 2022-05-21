@@ -1,6 +1,6 @@
 from typing import List
 from pathlib import Path
-from databaseLayer import databaseService
+from database import databaseService
 import groceries
 
 def load(fpath):
